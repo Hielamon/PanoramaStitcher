@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IncludePath>D:\Funny-Works\PlayWorks\OpenGL\OpenGLToys\common;D:\Code-Libraries\OpenGL\assimp-master\include;D:\Code-Libraries\OpenGL\glew-2.0.0\include;D:\Code-Libraries\OpenGL\glfw-master\include;D:\Code-Libraries\OpenGL\glm-master;D:\Code-Libraries\OpenGL\SOIL\src;D:\Code-Libraries\OpenGL\freetype-2.9\build_x64_vs15\install\include\freetype2;$(IncludePath)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;D:/Code-Libraries/OpenGL/assimp-master/build_x64_vs15/code/Release/assimp-vc140-mt.lib;D:/Code-Libraries/OpenGL/glew-2.0.0/lib/Release/x64/glew32s.lib;D:/Code-Libraries/OpenGL/glfw-master/build_x64_vs15/src/Release/glfw3.lib;D:/Code-Libraries/OpenGL/SOIL/projects/VC9/x64/Release/SOIL.lib;D:/Code-Libraries/OpenGL/freetype-2.9/build_x64_vs15/install/lib/freetype.lib;D:/Code-Libraries/ZLIB/zlib-master/build_x64_vs15/install/lib/zlibstatic.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PreprocessorDefinitions>GLEW_STATIC;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
