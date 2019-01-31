@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<is_ring>1</is_ring>
+<index>
+  3 0 1 2</index>
+<CModelName_C0>GeyerModel</CModelName_C0>
+<imgW_C0>4320</imgW_C0>
+<imgH_C0>6480</imgH_C0>
+<f_C0>1.7190735727102631e+03</f_C0>
+<u0_C0>2.0994547831507239e+03</u0_C0>
+<v0_C0>3.2015333394403742e+03</v0_C0>
+<fov_C0>3.1832750768821465e+00</fov_C0>
+<maxRadius_C0>2.7683523140888337e+03</maxRadius_C0>
+<extraParamNum_C0>2</extraParamNum_C0>
+<arg_3_C0>7.5365374384068395e-01</arg_3_C0>
+<arg_4_C0>1.2889952261708024e+00</arg_4_C0>
+<RotationMat_C0 type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>d</dt>
+  <data>
+    -1.0776372407603681e-02 5.6662176616301737e-03
+    -9.9992587914062059e-01 -2.6460703024187560e-01
+    9.6432046585345910e-01 8.3161699563108100e-03 9.6429611082089695e-01
+    2.6467703548585031e-01 -8.8925554321627100e-03</data></RotationMat_C0>
+<CModelName_C1>GeyerModel</CModelName_C1>
+<imgW_C1>4320</imgW_C1>
+<imgH_C1>6480</imgH_C1>
+<f_C1>1.7190735727102631e+03</f_C1>
+<u0_C1>2.0994547831507239e+03</u0_C1>
+<v0_C1>3.2015333394403742e+03</v0_C1>
+<fov_C1>3.1832750768821465e+00</fov_C1>
+<maxRadius_C1>2.7683523140888337e+03</maxRadius_C1>
+<extraParamNum_C1>2</extraParamNum_C1>
+<arg_3_C1>7.5365374384068395e-01</arg_3_C1>
+<arg_4_C1>1.2889952261708024e+00</arg_4_C1>
+<RotationMat_C1 type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>d</dt>
+  <data>
+    -9.9999470884261776e-01 1.3650345872853048e-03
+    2.9527897560038020e-03 2.1185431261330524e-03 9.6209559496244290e-01
+    2.7270419492351949e-01 -2.4686153589330712e-03
+    2.7270900761514577e-01 -9.6209339624787538e-01</data></RotationMat_C1>
+<CModelName_C2>GeyerModel</CModelName_C2>
+<imgW_C2>4320</imgW_C2>
+<imgH_C2>6480</imgH_C2>
+<f_C2>1.7190735727102631e+03</f_C2>
+<u0_C2>2.0994547831507239e+03</u0_C2>
+<v0_C2>3.2015333394403742e+03</v0_C2>
+<fov_C2>3.1832750768821465e+00</fov_C2>
+<maxRadius_C2>2.7683523140888337e+03</maxRadius_C2>
+<extraParamNum_C2>2</extraParamNum_C2>
+<arg_3_C2>7.5365374384068395e-01</arg_3_C2>
+<arg_4_C2>1.2889952261708024e+00</arg_4_C2>
+<RotationMat_C2 type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>d</dt>
+  <data>
+    1.1616617269262653e-02 -1.8443084183887976e-02
+    9.9976242520361069e-01 2.6418354914674147e-01 9.6436007984209948e-01
+    1.4720352141498506e-02 -9.6440246088624759e-01
+    2.6394978509694700e-01 1.6074961394192951e-02</data></RotationMat_C2>
+<CModelName_C3>GeyerModel</CModelName_C3>
+<imgW_C3>4320</imgW_C3>
+<imgH_C3>6480</imgH_C3>
+<f_C3>1.7190735727102631e+03</f_C3>
+<u0_C3>2.0994547831507239e+03</u0_C3>
+<v0_C3>3.2015333394403742e+03</v0_C3>
+<fov_C3>3.1832750768821465e+00</fov_C3>
+<maxRadius_C3>2.7683523140888337e+03</maxRadius_C3>
+<extraParamNum_C3>2</extraParamNum_C3>
+<arg_3_C3>7.5365374384068395e-01</arg_3_C3>
+<arg_4_C3>1.2889952261708024e+00</arg_4_C3>
+<RotationMat_C3 type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>d</dt>
+  <data>
+    9.9980736842834117e-01 1.8895060974756003e-02
+    -5.3106221062566841e-03 -1.9627175965869610e-02
+    9.6251346715975794e-01 -2.7052282620826235e-01
+    -6.1220544675485328e-17 2.7057494748564803e-01
+    9.6269891336447355e-01</data></RotationMat_C3>
+</opencv_storage>

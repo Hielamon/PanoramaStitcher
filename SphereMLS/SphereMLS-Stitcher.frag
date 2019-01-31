@@ -2,6 +2,7 @@
 
 layout (location = 0) out vec4 FragColor;
 layout (location = 1) out uint MeshID;
+layout (location = 2) out uint Mask;
 
 #if defined(HAVE_TEXTURE) && defined(HAVE_TEXCOORD)
 in vec2 TexCoord;
@@ -31,7 +32,7 @@ struct Material
 #endif
 
 #if defined(DIFFUSE_TEXTURE) && defined(HAVE_TEXCOORD)
-	sampler2D/*Array*/ diffuse_maps;
+	sampler2DArray diffuse_maps;
 #else
 	vec4 uDiffuse;
 #endif
@@ -96,15 +97,35 @@ void main()
 
 #if defined(DIFFUSE_TEXTURE) && defined(HAVE_TEXCOORD)
 	diffuse = vec3(1.0f, 1.0f, 1.0f);
-	//ivec3 diffuse_size = textureSize(material.diffuse_maps, 0);
-	//int diffuse_layers = diffuse_size.z;
-	//for(int i = 0; i < diffuse_layers; i++)
-	//{
-	//	diffuse *= vec3(texture(material.diffuse_maps, vec3(TexCoord, float(i))));
-	//	//diffuse *= vec3(1.0f, 0.0f, 0.0f);
-	//}
-	diffuse = vec3(texture(material.diffuse_maps, TexCoord));
-	//diffuse = vec3(1.0f, 0.0f, 0.0f);
+	ivec3 diffuse_size = textureSize(material.diffuse_maps, 0);
+	ivec3 ambient_size = textureSize(material.ambient_maps, 0);
+
+	if(diffuse_size != diffuse_size)
+		diffuse = vec3(1.0f, 0.0f, 0.0f);
+	int layers = diffuse_size.z;
+	float totalCount = 0.0f;
+	vec3 layer_color = vec3(0.0f, 0.0f, 0.0f);
+	for(int i = 0; i < layers; i++)
+	{
+		vec3 texCoord3D = vec3(TexCoord, float(i));
+		float mask = texture(material.ambient_maps, texCoord3D).r;
+		if( mask != 0.0f)
+		{
+			layer_color += vec3(texture(material.diffuse_maps, texCoord3D));
+			totalCount += 1.0f;
+		}
+	}
+
+	if(totalCount > 0.0f)
+	{
+		diffuse = layer_color * float(1.0f / totalCount);
+		Mask = uint(255);
+	}
+	else
+	{
+		diffuse = vec3(0.0f, 0.0f, 0.0f);
+		Mask = uint(0);
+	}
 	ambient = diffuse;
 #else
 	diffuse = vec3(material.uDiffuse);
@@ -116,17 +137,17 @@ void main()
 	alpha = material.uDiffuse.w;
 #endif
 
-#if defined(AMBIENT_TEXTURE) && defined(HAVE_TEXCOORD)
-	ambient = vec3(1.0f, 1.0f, 1.0f);
-	ivec3 ambient_size = textureSize(material.ambient_maps, 0);
-	int ambient_layers = ambient_size.z;
-	for(int i = 0; i < ambient_layers; i++)
-	{
-		ambient *= vec3(texture(material.ambient_maps, vec3(TexCoord, float(i))));
-	}
-#elif !defined(DIFFUSE_TEXTURE) || !defined(HAVE_TEXCOORD)
-	ambient = vec3(material.uAmbient);
-#endif
+//#if defined(AMBIENT_TEXTURE) && defined(HAVE_TEXCOORD)
+//	ambient = vec3(1.0f, 1.0f, 1.0f);
+//	ivec3 ambient_size = textureSize(material.ambient_maps, 0);
+//	int ambient_layers = ambient_size.z;
+//	for(int i = 0; i < ambient_layers; i++)
+//	{
+//		ambient *= vec3(texture(material.ambient_maps, vec3(TexCoord, float(i))));
+//	}
+//#elif !defined(DIFFUSE_TEXTURE) || !defined(HAVE_TEXCOORD)
+//	ambient = vec3(material.uAmbient);
+//#endif
 
 #if defined(SPECULAR_TEXTURE) && defined(HAVE_TEXCOORD)
 	specular = vec3(1.0f, 1.0f, 1.0f);

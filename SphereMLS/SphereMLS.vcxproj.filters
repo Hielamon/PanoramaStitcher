@@ -13,10 +13,22 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\PreviousFishEyeStitcher">
+      <UniqueIdentifier>{c6d552da-4c8a-4543-9235-c7b617ed95e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PreviousFishEyeStitcher">
+      <UniqueIdentifier>{885a32b1-eef8-489a-ab80-bf766a73eb01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SphereMLS.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FishCamera.cpp">
+      <Filter>Source Files\PreviousFishEyeStitcher</Filter>
+    </ClCompile>
+    <ClCompile Include="SequenceMatcher.cpp">
+      <Filter>Source Files\PreviousFishEyeStitcher</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +62,36 @@
     <None Include="SphereMLS-dilate.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="SphereMLS-CubeIcoNormalAndMask.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SphereMLS-CubeIcoNormalAndMask.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SphereMLS-UVNormalAndMask.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SphereMLS-UVNormalAndMask.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SphereMLS-Stitcher.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SphereMLS-Stitcher.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SPhoenixScene-OmniCameraCube.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SPhoenixScene-OmniCameraCube.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SphereMLS-dilate-debug.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SphereMLS-dilate-debug.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FishEyeCamera.h">
@@ -68,6 +110,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TransparentMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FishEyeInitWarper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraModel.h">
+      <Filter>Header Files\PreviousFishEyeStitcher</Filter>
+    </ClInclude>
+    <ClInclude Include="FishCamera.h">
+      <Filter>Header Files\PreviousFishEyeStitcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation.h">
+      <Filter>Header Files\PreviousFishEyeStitcher</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereStitcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SequenceMatcher.h">
+      <Filter>Header Files\PreviousFishEyeStitcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Ransac.h">
+      <Filter>Header Files\PreviousFishEyeStitcher</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomOmniCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereStitcherManipulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

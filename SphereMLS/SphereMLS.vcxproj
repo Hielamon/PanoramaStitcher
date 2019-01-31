@@ -150,25 +150,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FishCamera.cpp" />
+    <ClCompile Include="SequenceMatcher.cpp" />
     <ClCompile Include="SphereMLS.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SphereMLS-CubeIcoNormalAndMask.frag" />
+    <None Include="SphereMLS-CubeIcoNormalAndMask.vert" />
     <None Include="SphereMLS-CubeIcoTexture.frag" />
     <None Include="SphereMLS-CubeIcoTexture.vert" />
+    <None Include="SphereMLS-dilate-debug.frag" />
+    <None Include="SphereMLS-dilate-debug.vert" />
     <None Include="SphereMLS-dilate.frag" />
     <None Include="SphereMLS-dilate.vert" />
+    <None Include="SphereMLS-Stitcher.frag" />
+    <None Include="SphereMLS-Stitcher.vert" />
+    <None Include="SphereMLS-UVNormalAndMask.frag" />
+    <None Include="SphereMLS-UVNormalAndMask.vert" />
     <None Include="SphereMLS-UVTexture.frag" />
     <None Include="SphereMLS-UVTexture.vert" />
     <None Include="SphereMLS-CubeIco2D.frag" />
     <None Include="SphereMLS-CubeIco2D.vert" />
     <None Include="SPhoenixScene-AbsNormal.frag" />
     <None Include="SPhoenixScene-AbsNormal.vert" />
+    <None Include="SPhoenixScene-OmniCameraCube.frag" />
+    <None Include="SPhoenixScene-OmniCameraCube.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraModel.h" />
+    <ClInclude Include="CustomOmniCamera.h" />
     <ClInclude Include="DemoCamera.h" />
     <ClInclude Include="DemoScene.h" />
+    <ClInclude Include="FishCamera.h" />
     <ClInclude Include="FishEyeCamera.h" />
+    <ClInclude Include="FishEyeInitWarper.h" />
     <ClInclude Include="FishEyeShader.h" />
+    <ClInclude Include="Ransac.h" />
+    <ClInclude Include="Rotation.h" />
+    <ClInclude Include="SequenceMatcher.h" />
+    <ClInclude Include="SphereStitcher.h" />
+    <ClInclude Include="SphereStitcherManipulator.h" />
     <ClInclude Include="StitchMaterial.h" />
     <ClInclude Include="TransparentMesh.h" />
   </ItemGroup>

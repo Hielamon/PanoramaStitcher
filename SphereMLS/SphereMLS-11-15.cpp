@@ -6,20 +6,17 @@
 #include <fstream>
 #include <vector>
 
-#include "FishEyeInitWarper.h"
+#include "FishEyeInitWarp.h"
 #include "TransparentMesh.h"
-#include "SphereStitcher.h"
-#include "Ransac.h"
 
 using namespace SP;
 
 std::vector<std::string> vSaveFilePreifx = { "UVSphere", "CubeSphere", "IcoSphere" };
 SurfaceType surfaceType = CUBE_SURFACE;
-int edgeSize = 2000;
+int edgeSize =500;
 
-void Version0001()
+int main(int argc, char *argv[])
 {
-	surfaceType = CUBE_SURFACE;
 	int OmniTexWidth = 0, OmniTexHeight = 0;
 	int width = 1440, height = 900;
 	std::shared_ptr<Scene> pScene = std::make_shared<Scene>();
@@ -98,7 +95,7 @@ void Version0001()
 		}
 
 		/*(6 * 2 * 3);*/
-		std::vector<GLuint> vIndice =
+		std::vector<GLuint> vIndice = 
 		{
 			0, 3, 1, 1, 3, 4,
 
@@ -118,7 +115,7 @@ void Version0001()
 		pVA->setTexCoords(vTexCoords);
 
 		std::shared_ptr<Mesh> pMesh = std::make_shared<Mesh>(pVA, pMaterial);
-
+			
 		std::string vertShaderFile = "SphereMLS-CubeIcoTexture.vert";
 		std::string fragShaderFile = "SphereMLS-CubeIcoTexture.frag";
 		std::shared_ptr<UnifyFEShaderProgram> pShader
@@ -130,10 +127,10 @@ void Version0001()
 		std::shared_ptr<ShaderProgram> pShader2D
 			= std::make_shared<ShaderProgram>(vertShaderFile2D, fragShaderFile2D);
 
-		std::vector<GLuint> vLineIndice =
+		std::vector<GLuint> vLineIndice = 
 		{
 			0, 1, 2, 6, 7, 11, 12, 13,
-
+			
 			2, 7, 0, 12, 1, 13, 5, 10, 6, 11
 		};
 		std::shared_ptr<VertexArray> pVALine
@@ -253,7 +250,7 @@ void Version0001()
 		std::vector<GLuint> vLineIndice =
 		{
 			0, 5, 1, 11, 2, 17, 3, 18, 4, 19, 10, 20, 16, 21,
-			5, 17, 0, 18, 1, 19, 2, 20, 3, 21, 4, 16,
+			5, 17, 0, 18, 1, 19, 2, 20, 3, 21, 4, 16, 
 			5, 10, 11, 16
 		};
 		std::shared_ptr<VertexArray> pVALine
@@ -282,7 +279,6 @@ void Version0001()
 	int minWidth = width * 0.25, minHeight = height * 0.25;
 	std::shared_ptr<UnifyFECamera> pCamera =
 		std::make_shared<UnifyFECamera>(minWidth, minHeight, width - minWidth, 0);
-	pCamera->setViewMatrix(glm::vec3(0.0), glm::vec3(0.0f, 0.0f, 1.0f));
 
 	std::string settingPath = "D:\\Academic-Research\\Datas\\SLAMDatas\\TUM-SLAM-Omni\\T1\\calibrationOrig.yaml";
 	pCamera->readFromTUMSettings(settingPath);
@@ -299,14 +295,14 @@ void Version0001()
 	int w, h, c;
 	pCamera->readColorBuffer(pData, w, h, c);
 	SOIL_save_image(saveFullPath.c_str(), SOIL_SAVE_TYPE_BMP,
-	w, h, c, pData.get());*/
+					w, h, c, pData.get());*/
 
 	/*std::string saveFullPath = vSaveFilePreifx[surfaceType] + "-Mask.png";
 	std::shared_ptr<unsigned char> pData;
 	int w, h, c;
 	pCamera->readMaskBuffer(pData, w, h, c);
 	SOIL_save_image(saveFullPath.c_str(), SOIL_SAVE_TYPE_BMP,
-	w, h, c, pData.get());*/
+					w, h, c, pData.get());*/
 
 	std::shared_ptr<Scene> pSceneShow = std::make_shared<Scene>();
 
@@ -339,20 +335,20 @@ void Version0001()
 		pWindow->runOnce();
 	}
 	/*{
-	std::string saveFullPath = vSaveFilePreifx[surfaceType] + "-Dilate100.png";
-	std::shared_ptr<unsigned char> pData;
-	int w, h, c;
-	pCamera->readColorBuffer(pData, w, h, c);
-	SOIL_save_image(saveFullPath.c_str(), SOIL_SAVE_TYPE_BMP,
-	w, h, c, pData.get());
+		std::string saveFullPath = vSaveFilePreifx[surfaceType] + "-Dilate100.png";
+		std::shared_ptr<unsigned char> pData;
+		int w, h, c;
+		pCamera->readColorBuffer(pData, w, h, c);
+		SOIL_save_image(saveFullPath.c_str(), SOIL_SAVE_TYPE_BMP,
+						w, h, c, pData.get());
 	}
 	{
-	std::string saveFullPath = vSaveFilePreifx[surfaceType] + "-Mask100.png";
-	std::shared_ptr<unsigned char> pData;
-	int w, h, c;
-	pCamera->readMaskBuffer(pData, w, h, c);
-	SOIL_save_image(saveFullPath.c_str(), SOIL_SAVE_TYPE_BMP,
-	w, h, c, pData.get());
+		std::string saveFullPath = vSaveFilePreifx[surfaceType] + "-Mask100.png";
+		std::shared_ptr<unsigned char> pData;
+		int w, h, c;
+		pCamera->readMaskBuffer(pData, w, h, c);
+		SOIL_save_image(saveFullPath.c_str(), SOIL_SAVE_TYPE_BMP,
+						w, h, c, pData.get());
 	}
 	return 0;*/
 
@@ -367,19 +363,18 @@ void Version0001()
 	case CUBE_SURFACE:
 	{
 		std::shared_ptr<MaterialFBO> pMaterialFBO = pCamera->getMaterialFBO();
-		//pMaterialFBO->setSpecularColor(glm::vec4(1.0f));
-		//pMaterialFBO->setShininessStrength(1.0f);
-
+		pMaterialFBO->setShininessStrength(0.0);
+		
 		CubeGrid cubeGrid(4);
-
+		
 		std::vector<glm::vec3> vVertice = cubeGrid.getFlatSphereVertice();
 		std::vector<GLuint> vIndice;
 		std::vector<glm::vec2> vTexCoordOnFlat = cubeGrid.vTexCoordOnFlat;
 
 		std::shared_ptr<VertexArray> pVA = std::make_shared<VertexArray>(vVertice);
-		pVA->setNormals(vVertice);
+		//pVA->setNormals(vVertice);
 		//pVA->setColors()
-
+		
 		pVA->setTexCoords(vTexCoordOnFlat);
 		glm::mat4 rotInvZ = glm::rotate(glm::mat4(1.0f), glm::pi<float>(), glm::vec3(0.0f, 1.0f, 0.0f));
 		pVA->addInstance(rotInvZ);
@@ -402,7 +397,7 @@ void Version0001()
 		//pPlane->setTexCoord(0.0f, 0.0f, 1.0f, 1.0f);
 		//pSceneShow->addMesh(pPlane, pShader);
 	}
-	break;
+		break;
 	case ICO_SURFACE:
 		break;
 	default:
@@ -411,166 +406,7 @@ void Version0001()
 
 	pWindow->setScene(pSceneShow);
 	pWindow->run();
-}
 
-void Version0002()
-{
-	FishEyeInitWarper initWarper(edgeSize, surfaceType);
-	initWarper.setDilateTimes(5);
-	std::string fishImgPath = "D:\\Academic-Research\\Datas\\SLAMDatas\\TUM-SLAM-Omni\\T1\\T1_orig\\images\\1424198581.180664660.png";
-	std::string fishImgFolder = "D:\\Academic-Research\\Datas\\SLAMDatas\\TUM-SLAM-Omni\\T1\\T1_orig\\images";
-	std::string settingPath = "D:\\Academic-Research\\Datas\\SLAMDatas\\TUM-SLAM-Omni\\T1\\calibrationOrig.yaml";
-	initWarper.setTUMFishEye(settingPath);
-	initWarper.renderNormalAndMask();
-
-	cv::Mat warpedMask = initWarper.getWarpedMask();
-	cv::Mat warpedNormal = initWarper.getWarpedNormal();
-
-	TraverFolder tf(fishImgFolder);
-	std::vector<std::string> vFishImgPath;
-	tf.getFileFullPath(vFishImgPath, "png");
-
-	for (size_t i = 0; i < vFishImgPath.size(); i++)
-	{
-		initWarper.renderFishEyeImage(vFishImgPath[i]);
-		cv::Mat warpedImage = initWarper.getWarpedImage();
-		cv::resize(warpedImage, warpedImage, cv::Size(warpedImage.cols * 0.5, warpedImage.rows * 0.5));
-		cv::imshow("warpedImage", warpedImage);
-		cv::waitKey(1);
-	}
-}
-
-int main(int argc, char *argv[])
-{
-	//Version0001();
-	//return 0;
-	/*SphereStitcher sphereStitcher(4, surfaceType);
-	sphereStitcher.renderStitcher();*/
-
-	/*std::string fishImgFolder = "HotelTest15";
-	std::string settingPath = "HotelTest15\\tempEstimatedState.xml";*/
-
-	std::string topFolder = "D:/Academic-Research/Graduation-Project/SimulatedEnv/MultiFishEyeCamera/FishEyeCameraShot-t03-0000";
-	std::string fishImgFolder = topFolder + "/Frame-0000";
-	std::string settingPath = topFolder + "/CameraSetting.xml";
-
-	
-
-	FishEyeInitWarper initWarper(edgeSize, surfaceType);
-	initWarper.setDilateTimes(5);
-	initWarper.setHLFishEye(settingPath);
-
-	bool is_ring;
-	std::vector<int> imageIndex;
-	std::vector<glm::mat3> vRot;
-	{
-		cv::FileStorage fs;
-		fs.open(settingPath, cv::FileStorage::READ);
-		if (fs.isOpened())
-		{
-			//Load the estimated state which have been saved
-			fs["is_ring"] >> is_ring;
-			fs["index"] >> imageIndex;
-
-			int numCamera = imageIndex.size();
-			for (size_t i = 0; i < numCamera; i++)
-			{
-				CircleFish::FishCamera camera;
-				camera.LoadFromXML(fs, i);
-				cv::Mat R = camera.pRot->R;
-				double *RPtr = reinterpret_cast<double *>(R.data);
-				float Rfloat[9];
-				for (size_t i = 0; i < 9; i++)
-				{
-					Rfloat[i] = RPtr[i];
-				}
-				glm::mat3 glR(Rfloat[0], Rfloat[1], -Rfloat[2],
-							  Rfloat[3], Rfloat[4], -Rfloat[5],
-							  -Rfloat[6], -Rfloat[7], Rfloat[8]);
-
-				vRot.push_back(glR);
-			}
-
-			
-		}
-		else
-		{
-			std::cerr << "Cannot open the setting file " << settingPath << std::endl;
-			exit(-1);
-		}
-	}
-
-	TraverFolder tf(fishImgFolder);
-	std::vector<std::string> vFishImgPath;
-	tf.getFileFullPath(vFishImgPath, "jpg");
-
-	int num_image = vFishImgPath.size();
-	assert(num_image == imageIndex.size());
-	num_image = 2;
-
-	std::vector<cv::Mat> vWarpedImage(num_image), vWarpedMask(num_image);
-	cv::Mat warpedNormal;
-
-	for (size_t i = 0; i < num_image; i++)
-	{
-		JoyStick3D joystick;
-		glm::vec3 eye(0.0f), center(0.0f, 0.0f, -1.0f), up(0.0f, 1.0f, 0.0f);
-		joystick.executeRotation(eye, center, up, vRot[i]);
-		initWarper.getUnifyFECamera()->setViewMatrix(eye, center, up);
-
-		initWarper.renderNormalAndMask();
-
-		cv::Mat warpedMask = initWarper.getWarpedMask();
-		warpedNormal = initWarper.getWarpedNormal();
-		warpedMask.copyTo(vWarpedMask[i]);
-
-		initWarper.renderFishEyeImage(vFishImgPath[i]);
-		cv::Mat warpedImage = initWarper.getWarpedImage();
-		warpedImage.copyTo(vWarpedImage[i]);
-	}
-
-	SequenceMatcher sMatcher(SequenceMatcher::FeatureType::F_ORB);
-	PairInfo pairInfo;
-	sMatcher.processTwoImageOverCommonMask(vWarpedImage[0], vWarpedImage[1],
-										   vWarpedMask[0], vWarpedMask[1],
-										   pairInfo, 0, 1);
-
-	std::vector<cv::Mat> vImageTemp = { vWarpedImage[0], vWarpedImage[1] };
-	std::vector<cv::Mat> vMaskTemp = { vWarpedMask[0], vWarpedMask[1] };
-	std::list<PairInfo> lPairInfo = { pairInfo };
-
-	std::vector<std::vector<double> > csp(pairInfo.pairs_num);
-	for (size_t i = 0; i < pairInfo.pairs_num; i++)
-	{
-		cv::Point3f threed1 = warpedNormal.at<cv::Vec3f>(pairInfo.points1[i]);
-		cv::Point3f threed2 = warpedNormal.at<cv::Vec3f>(pairInfo.points2[i]);
-		csp[i].resize(6);
-		csp[i][0] = threed1.x; csp[i][1] = threed1.y; csp[i][2] = threed1.z;
-		csp[i][3] = threed2.x; csp[i][4] = threed2.y; csp[i][5] = threed2.z;
-	}
-
-	std::vector<char> inliers(pairInfo.pairs_num, 1);
-	RansacRotation rr(0.15, 0.999, 2000, true);
-	double inlier_rate = rr.run(csp, inliers);
-	pairInfo.inliers_num = 0;
-	for (size_t i = 0; i < pairInfo.pairs_num; i++)
-	{
-		pairInfo.mask[i] = inliers[i];
-		if (pairInfo.mask[i])
-			pairInfo.inliers_num++;
-	}
-
-	SphereStitcher sphereStitcher(6, surfaceType);
-	sphereStitcher.renderMLSResult(warpedNormal, vWarpedImage[0], vWarpedMask[0], pairInfo, 5);
-	
-	cv::Mat result, resultMask;
-	sphereStitcher.blendCompute(vImageTemp, vMaskTemp, result, resultMask);
-
-	std::vector<cv::Mat> vImageResult = { result };
-	std::vector<cv::Mat> vMaskResult = { resultMask };
-	sphereStitcher.renderStitcher(vImageResult, vMaskResult);
-	cv::imwrite("result.jpg", result);
-	//sphereStitcher.renderStitcher(vImageTemp, vMaskTemp);
-	//sphereStitcher.renderStitcher(vWarpedImage, vWarpedMask);
 	return 0;
+
 }

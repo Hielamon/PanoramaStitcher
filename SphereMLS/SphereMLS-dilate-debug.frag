@@ -67,7 +67,8 @@ void main()
 			Mask = uint(255);
 		}
 	}
-
+	//vec4 diffColor = texture(material.ambient_maps, TexCoord);
 	//FragColor = diffColor;
+	//FragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 	FragColor = resultColor;
 }

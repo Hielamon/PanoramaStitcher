@@ -2,6 +2,7 @@
 
 layout (location = 0) out vec4 FragColor;
 layout (location = 1) out uint MeshID;
+layout (location = 2) out uint Mask;
 
 layout (std140) uniform UnifyFEUBO
 {
@@ -9,6 +10,13 @@ layout (std140) uniform UnifyFEUBO
 	float fov, ksai; // 2 * 4
 	float fx, fy, u0, v0; // 4 * 4
 	float k1, k2, p1, p2; // 4 * 4
+};
+
+layout (std140) uniform ViewUBO
+{
+	mat4 projMatrix; // 16 * 4
+	mat4 viewMatrix; // 16 * 4
+	vec3 viewPos;    // 16
 };
 
 struct Material
@@ -23,6 +31,7 @@ const float PI = 3.1415926535897932384626433832795;
 
 bool computeTexCoord(vec3 normal, inout vec3 texcoord)
 {
+	
 	float halfFOV = 0.5f * fov;
 	float zmin = cos(halfFOV);
 	if(-normal.z < zmin) return false;
@@ -51,15 +60,23 @@ void main()
 {	
 	float theta = FragPos.x * PI;
 	float phi = (0.5f - FragPos.y * 0.5f) * PI;
-	vec3 normal = vec3(-sin(phi) * sin(theta), cos(phi), -sin(phi) * cos(theta));
+	vec3 normal = vec3(sin(phi) * sin(theta), cos(phi), -sin(phi) * cos(theta));
 	normal = normalize(normal);
+
+	mat3 R = mat3(viewMatrix);
+	normal = R * normal;
 
 	vec3 TexCoord;
 	vec4 resultColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	if(computeTexCoord(normal, TexCoord))
 	{
-		resultColor= vec4(vec3(texture(material.diffuse_maps, TexCoord).x), 1.0f);
+		//for opence 3 channels image
+		vec3 rgb = vec3(texture(material.diffuse_maps, TexCoord));
+		resultColor = vec4(rgb, 1.0f);
+		//resultColor= vec4(vec3(texture(material.diffuse_maps, TexCoord).x), 1.0f);
 	}
+
+	Mask = uint(255);
 	
 	FragColor = resultColor;
 	//FragColor = vec4(fov, 0.0f, 0.0f, 1.0f);

@@ -3,8 +3,9 @@
 layout (location = 0) out vec4 FragColor;
 layout (location = 1) out uint MeshID;
 layout (location = 2) out uint Mask;
+layout (location = 3) out vec4 SNormal;
 
-//const float PI = 3.1415926535897932384626433832795;
+const float PI = 3.1415926535897932384626433832795;
 
 layout (std140) uniform UnifyFEUBO
 {
@@ -21,17 +22,7 @@ layout (std140) uniform ViewUBO
 	vec3 viewPos;    // 16
 };
 
-#if defined(HAVE_NORMAL)
-in vec3 Normal;
-#endif
-
-struct Material
-{
-	sampler2DArray diffuse_maps;
-};
-
 in vec2 FragPos;
-uniform Material material;
 
 bool computeTexCoord(vec3 normal, inout vec3 texcoord)
 {
@@ -61,31 +52,24 @@ bool computeTexCoord(vec3 normal, inout vec3 texcoord)
 
 void main()
 {	
-	vec3 normal = vec3(0.0f, 0.0f, 1.0f);
-
-#if defined(HAVE_NORMAL)
-	normal = normalize(Normal);
-#endif
+	float theta = FragPos.x * PI;
+	float phi = (0.5f - FragPos.y * 0.5f) * PI;
+	vec3 normal = vec3(sin(phi) * sin(theta), cos(phi), -sin(phi) * cos(theta));
+	normal = normalize(normal);
+	SNormal = vec4(normal, 1.0f);
 
 	mat3 R = mat3(viewMatrix);
 	normal = R * normal;
 
 	vec3 TexCoord;
-	//vec4 resultColor = vec4(0.0f, 0.0f, 0.0f, 0.0f);
-	//vec4 resultColor = vec4(0.5f, 0.5f, 0.5f, 0.5f);
-	vec4 resultColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	if(computeTexCoord(normal, TexCoord))
 	{
-		//for opence 3 channels image
-		vec3 rgb = vec3(texture(material.diffuse_maps, TexCoord));
-		resultColor = vec4(rgb, 1.0f);
-		//resultColor= vec4(vec3(texture(material.diffuse_maps, TexCoord).x), 1.0f);
-		//resultColor = vec4(1.0f, 0.0f, 0.0f, 0.0f);
-		//Mask = uint(255);
+		Mask = uint(255);
+	}
+	else
+	{
+		Mask = uint(0);
 	}
 
-	Mask = uint(255);
-
-	FragColor = resultColor;
-	//FragColor = vec4(fov, 0.0f, 0.0f, 1.0f);
+	FragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }
